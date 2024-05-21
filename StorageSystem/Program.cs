@@ -1,6 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using System;
+using StorageSystem.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
+string? DbConnectionString;
+
+if (builder.Environment.IsDevelopment())
+{
+    DbConnectionString = builder.Configuration.GetConnectionString("DbConnectionDevelopment");
+}
+else
+{
+    DbConnectionString = builder.Configuration.GetConnectionString("DbConnectionProduction");
+}
+
 // Add services to the container.
+
+var Configuration = builder.Configuration;
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(DbConnectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
