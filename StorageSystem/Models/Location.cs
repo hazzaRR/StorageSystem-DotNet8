@@ -9,9 +9,9 @@ namespace StorageSystem.Models
     {
 
         [Column("id", TypeName = nameof(SqlDbType.UniqueIdentifier))]
-        public Guid Id;
+        public Guid Id { get; set; }
 
         [Column("name")]
-        public string Name;
+        public string Name { get; set; }
     }
 }

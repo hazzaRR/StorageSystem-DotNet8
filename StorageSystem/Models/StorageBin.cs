@@ -9,11 +9,11 @@ namespace StorageSystem.Models
     {
 
         [Column("id", TypeName = nameof(SqlDbType.UniqueIdentifier))]
-        public Guid Id;
+        public Guid Id { get; set; }
 
         [Column("locationId")]
-        public int LocationId;
+        public int LocationId { get; set; }
 
-        public required Location Location;
+        public required Location Location { get; set; }
     }
 }
