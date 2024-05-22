@@ -42,7 +42,7 @@ namespace StorageSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("item");
+                    b.ToTable("item", (string)null);
                 });
 
             modelBuilder.Entity("StorageSystem.Models.ItemStorageBin", b =>
@@ -59,7 +59,7 @@ namespace StorageSystem.Migrations
 
                     b.HasIndex("StorageBinId");
 
-                    b.ToTable("item_storagebin");
+                    b.ToTable("item_storagebin", (string)null);
                 });
 
             modelBuilder.Entity("StorageSystem.Models.Location", b =>
@@ -73,7 +73,7 @@ namespace StorageSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("location");
+                    b.ToTable("location", (string)null);
                 });
 
             modelBuilder.Entity("StorageSystem.Models.StorageBin", b =>
@@ -92,7 +92,7 @@ namespace StorageSystem.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("storagebin");
+                    b.ToTable("storagebin", (string)null);
                 });
 
             modelBuilder.Entity("StorageSystem.Models.ItemStorageBin", b =>

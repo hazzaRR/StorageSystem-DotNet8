@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 
 namespace StorageSystem.Models
 {
@@ -8,8 +9,8 @@ namespace StorageSystem.Models
     {
 
 
-        [Column("id")]
-        public int Id { get; set; }
+        [Column("id", TypeName = nameof(SqlDbType.UniqueIdentifier))]
+        public Guid Id { get; set; }
 
 
         [Column("name")]

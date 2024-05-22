@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 
 namespace StorageSystem.Models
 {
@@ -7,8 +8,8 @@ namespace StorageSystem.Models
     public class StorageBin
     {
 
-        [Column("id")]
-        public int Id;
+        [Column("id", TypeName = nameof(SqlDbType.UniqueIdentifier))]
+        public Guid Id;
 
         [Column("locationId")]
         public int LocationId;
