@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StorageSystem.Dtos;
+using StorageSystem.Interfaces;
+using StorageSystem.Mappers;
 
 namespace StorageSystem.Controllers
 {
@@ -7,5 +10,50 @@ namespace StorageSystem.Controllers
     [ApiController]
     public class LocationController : ControllerBase
     {
+
+
+        private ILocationService _locationService;
+
+
+        public LocationController(ILocationService locationService)
+        {
+            _locationService = locationService;
+        }
+
+        [HttpGet]
+        public IActionResult GetById(string id)
+        {
+
+           var location =  _locationService.GetById(new Guid(id));
+
+            if (location == null)
+            {
+                return NotFound();
+
+            }
+
+            return Ok(location);
+
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+
+            var locations = _locationService.GetAll();
+
+            return Ok(locations);
+
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateLocationDTO locationDTO)
+        {
+
+            var location = _locationService.Create(locationDTO.ToLocation());
+
+            return Created("", location);
+
+        }
     }
 }

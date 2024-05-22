@@ -9,9 +9,9 @@ namespace StorageSystem.Interfaces
 
         Task<List<Location>> GetAll();
 
-        Task<Location> Create(Item item);
+        Task<Location> Create(Location location);
 
-        Task<Location> Update(Item item);
+        Task<Location> Update(Location location);
 
         Task<Location> Delete(Guid id);
     }
