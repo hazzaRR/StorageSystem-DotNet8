@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StorageSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/item")]
     [ApiController]
     public class ItemController : ControllerBase
     {
