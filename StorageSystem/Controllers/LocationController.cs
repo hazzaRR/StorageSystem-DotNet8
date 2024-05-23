@@ -20,8 +20,8 @@ namespace StorageSystem.Controllers
             _locationService = locationService;
         }
 
-        [HttpGet]
-        public IActionResult GetById(string id)
+        [HttpGet("{id}")]
+        public IActionResult GetById([FromRoute] string id)
         {
 
            var location =  _locationService.GetById(new Guid(id));
@@ -47,10 +47,10 @@ namespace StorageSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateLocationDTO locationDTO)
+        public async Task<IActionResult> Create(CreateLocationDTO locationDTO)
         {
 
-            var location = _locationService.Create(locationDTO.ToLocation());
+            var location = await _locationService.Create(locationDTO.ToLocation());
 
             return Created("", location);
 

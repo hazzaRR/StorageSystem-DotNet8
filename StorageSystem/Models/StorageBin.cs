@@ -8,12 +8,15 @@ namespace StorageSystem.Models
     public class StorageBin
     {
 
-        [Column("id", TypeName = nameof(SqlDbType.UniqueIdentifier))]
-        public Guid Id { get; set; }
+        [Column("id")]
+        public int Id { get; set; }
 
         [Column("locationId")]
         public int LocationId { get; set; }
 
-        public required Location Location { get; set; }
+        public required Location Location { get; set; } = null!;
+
+        public ICollection<Item> Items { get; } = new List<Item>();
+
     }
 }

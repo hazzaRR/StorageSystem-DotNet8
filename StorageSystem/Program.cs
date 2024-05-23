@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using StorageSystem.Models;
+using StorageSystem.Interfaces;
+using StorageSystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,13 @@ else
 
 // Add services to the container.
 
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IStorageBinService, StorageBinService>();
+builder.Services.AddScoped<IItemStorageBinService, ItemStorageBinService>();
+
 var Configuration = builder.Configuration;
+
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(DbConnectionString));
 

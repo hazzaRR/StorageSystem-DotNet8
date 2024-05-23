@@ -21,7 +21,6 @@ namespace StorageSystem.Models
             modelBuilder.Entity<Location>()
                 .HasKey(l => l.Id);
 
-
             modelBuilder.Entity<StorageBin>()
                 .HasKey(sb => sb.Id);
 

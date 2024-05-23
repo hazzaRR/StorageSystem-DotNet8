@@ -9,8 +9,8 @@ namespace StorageSystem.Models
     {
 
 
-        [Column("id", TypeName = nameof(SqlDbType.UniqueIdentifier))]
-        public Guid Id { get; set; }
+        [Column("id")]
+        public int Id { get; set; }
 
 
         [Column("name")]
@@ -20,6 +20,6 @@ namespace StorageSystem.Models
         [Column("quantity")]
         public int Quantity { get; set; } = 0;
 
-        public ICollection<StorageBin> StorageBins { get; set; } = new List<StorageBin>();
+        public ICollection<StorageBin> StorageBins { get; } = new List<StorageBin>();
     }
 }

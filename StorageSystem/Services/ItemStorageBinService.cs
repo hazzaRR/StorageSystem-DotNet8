@@ -1,8 +1,9 @@
-﻿using StorageSystem.Models;
+﻿using StorageSystem.Interfaces;
+using StorageSystem.Models;
 
 namespace StorageSystem.Services
 {
-    public class ItemStorageBinService
+    public class ItemStorageBinService: IItemStorageBinService
     {
 
         private AppDbContext _context;

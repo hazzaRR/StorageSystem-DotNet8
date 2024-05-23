@@ -6,7 +6,7 @@ namespace StorageSystem.Services
     public class LocationService: ILocationService
     {
 
-        private AppDbContext _context;
+        private readonly AppDbContext _context;
 
         public LocationService(AppDbContext context)
         {
@@ -15,7 +15,7 @@ namespace StorageSystem.Services
 
         public async Task<Location> Create(Location location)
         {
-            _context.Add(location);
+            await _context.AddAsync(location);
             await _context.SaveChangesAsync();
 
 

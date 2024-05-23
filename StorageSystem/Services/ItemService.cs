@@ -1,8 +1,9 @@
-﻿using StorageSystem.Models;
+﻿using StorageSystem.Interfaces;
+using StorageSystem.Models;
 
 namespace StorageSystem.Services
 {
-    public class ItemService
+    public class ItemService: IItemService
     {
 
         private AppDbContext _context;
@@ -11,6 +12,31 @@ namespace StorageSystem.Services
         public ItemService(AppDbContext context)
         {
             _context = context;
+        }
+
+        public Task<Item> Create(Item item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Item> Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Item>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Item> GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Item> Update(Item item)
+        {
+            throw new NotImplementedException();
         }
     }
 }
