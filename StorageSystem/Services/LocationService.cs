@@ -15,7 +15,7 @@ namespace StorageSystem.Services
 
         public async Task<Location> Create(Location location)
         {
-            await _context.AddAsync(location);
+            _context.Add(location);
             await _context.SaveChangesAsync();
 
 
