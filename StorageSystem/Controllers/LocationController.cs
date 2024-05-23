@@ -52,7 +52,7 @@ namespace StorageSystem.Controllers
 
             var location = await _locationService.Create(locationDTO.ToLocation());
 
-            return Created("", location);
+            return Created("", location.ToLocationDTO());
 
         }
     }

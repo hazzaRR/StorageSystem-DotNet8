@@ -10,6 +10,6 @@ namespace StorageSystem.Dtos
 
         public int Quantity { get; set; } = 0;
 
-        public List<Guid> StorageBinsId { get; set; } = new List<Guid>();
+        public List<int> StorageBinsId { get; set; } = new List<int>();
     }
 }
