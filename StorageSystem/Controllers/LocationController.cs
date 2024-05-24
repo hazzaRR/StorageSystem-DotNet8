@@ -21,10 +21,10 @@ namespace StorageSystem.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] string id)
+        public async Task<IActionResult> GetById([FromRoute] string id)
         {
 
-           var location =  _locationService.GetById(new Guid(id));
+           var location =  await _locationService.GetById(new Guid(id));
 
             if (location == null)
             {
@@ -37,10 +37,10 @@ namespace StorageSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
 
-            var locations = _locationService.GetAll();
+            var locations = await _locationService.GetAll();
 
             return Ok(locations);
 
@@ -51,6 +51,7 @@ namespace StorageSystem.Controllers
         {
 
             var location = await _locationService.Create(locationDTO.ToLocation());
+
 
             return Created("", location.ToLocationDTO());
 
