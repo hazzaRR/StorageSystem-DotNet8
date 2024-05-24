@@ -1,4 +1,5 @@
-﻿using StorageSystem.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using StorageSystem.Interfaces;
 using StorageSystem.Models;
 
 namespace StorageSystem.Services
@@ -22,19 +23,19 @@ namespace StorageSystem.Services
             return location;
         }
 
-        public Task<Location> Delete(Guid id)
+        public Task<Location> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Location>> GetAll()
+        public async Task<List<Location>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Location.ToListAsync();
         }
 
-        public Task<Location> GetById(Guid id)
+        public async Task<Location> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Location.FirstOrDefaultAsync(location => location.Id == id);
         }
 
         public Task<Location> Update(Location location)

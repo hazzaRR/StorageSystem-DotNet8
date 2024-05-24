@@ -21,10 +21,10 @@ namespace StorageSystem.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] string id)
+        public async Task<IActionResult> GetById([FromRoute]int id)
         {
 
-           var location =  await _locationService.GetById(new Guid(id));
+           var location =  await _locationService.GetById(id);
 
             if (location == null)
             {

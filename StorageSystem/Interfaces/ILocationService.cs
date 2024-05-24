@@ -5,7 +5,7 @@ namespace StorageSystem.Interfaces
     public interface ILocationService
     {
 
-        Task<Location> GetById(Guid id);
+        Task<Location> GetById(int id);
 
         Task<List<Location>> GetAll();
 
@@ -13,6 +13,6 @@ namespace StorageSystem.Interfaces
 
         Task<Location> Update(Location location);
 
-        Task<Location> Delete(Guid id);
+        Task<Location> Delete(int id);
     }
 }
