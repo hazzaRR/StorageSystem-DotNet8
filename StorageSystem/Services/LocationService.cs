@@ -23,9 +23,21 @@ namespace StorageSystem.Services
             return location;
         }
 
-        public Task<Location> Delete(int id)
+        public async Task<Location> Delete(int id)
         {
-            throw new NotImplementedException();
+
+            var loaction = await _context.Location.FirstOrDefaultAsync(loc => loc.Id == id);
+
+            if (loaction == null)
+            {
+                return null;
+            }
+            _context.Location.Remove(loaction);
+
+            await _context.SaveChangesAsync();
+
+
+            return loaction;
         }
 
         public async Task<List<Location>> GetAll()

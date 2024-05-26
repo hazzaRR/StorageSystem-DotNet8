@@ -21,10 +21,10 @@ namespace StorageSystem.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute]int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
 
-           var location =  await _locationService.GetById(id);
+            var location = await _locationService.GetById(id);
 
             if (location == null)
             {
@@ -54,6 +54,19 @@ namespace StorageSystem.Controllers
 
 
             return Created("", location.ToLocationDTO());
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id) 
+        {
+            var location = await _locationService.Delete(id);
+
+            if (location == null)
+            {
+                return NotFound($"No location with the Id {id} could be found");
+            }
+            return NoContent();
 
         }
     }
