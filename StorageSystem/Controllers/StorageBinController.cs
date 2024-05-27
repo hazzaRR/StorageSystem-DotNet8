@@ -24,5 +24,18 @@ namespace StorageSystem.Controllers
 
             return Ok(bins);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var bin = await _storageBinService.GetById(id);
+
+            if (bin == null)
+            {
+                return NotFound($"No storage bin the id: {id}");
+            }
+
+            return Ok(bin);
+        }
     }
 }

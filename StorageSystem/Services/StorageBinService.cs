@@ -1,4 +1,5 @@
-﻿using StorageSystem.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using StorageSystem.Interfaces;
 using StorageSystem.Models;
 
 namespace StorageSystem.Services
@@ -23,14 +24,14 @@ namespace StorageSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<StorageBin>> GetAll()
+        public async Task<List<StorageBin>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.StorageBin.ToListAsync();
         }
 
-        public Task<StorageBin> GetById(int id)
+        public async Task<StorageBin> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.StorageBin.FirstOrDefaultAsync(bin => bin.Id == id);
         }
 
         public Task<StorageBin> Update(Item item)
