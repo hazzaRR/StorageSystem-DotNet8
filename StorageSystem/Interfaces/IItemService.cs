@@ -5,7 +5,7 @@ namespace StorageSystem.Interfaces
     public interface IItemService
     {
 
-        Task<Item> GetById(Guid id);
+        Task<Item> GetById(int id);
 
         Task<List<Item>> GetAll();
 
@@ -13,7 +13,7 @@ namespace StorageSystem.Interfaces
 
         Task<Item> Update(Item item);
 
-        Task<Item> Delete(Guid id);
+        Task<Item> Delete(int id);
 
     }
 }

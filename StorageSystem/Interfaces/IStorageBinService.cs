@@ -5,7 +5,7 @@ namespace StorageSystem.Interfaces
     public interface IStorageBinService
     {
 
-        Task<StorageBin> GetById(Guid id);
+        Task<StorageBin> GetById(int id);
 
         Task<List<StorageBin>> GetAll();
 
@@ -13,7 +13,7 @@ namespace StorageSystem.Interfaces
 
         Task<StorageBin> Update(Item item);
 
-        Task<StorageBin> Delete(Guid id);
+        Task<StorageBin> Delete(int id);
 
     }
 }

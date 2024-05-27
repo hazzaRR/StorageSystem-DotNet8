@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
 using StorageSystem.Models;
 
@@ -50,9 +51,13 @@ namespace StorageSystem.Services
             return await _context.Location.FirstOrDefaultAsync(location => location.Id == id);
         }
 
-        public Task<Location> Update(Location location)
+        public async Task<Location> Update(Location location, CreateLocationDTO locationDTO)
         {
-            throw new NotImplementedException();
+            location.Name = locationDTO.Name;
+
+            await _context.SaveChangesAsync();
+
+            return location;
         }
     }
 }

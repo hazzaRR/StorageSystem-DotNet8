@@ -69,5 +69,24 @@ namespace StorageSystem.Controllers
             return NoContent();
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CreateLocationDTO locationDTO)
+        {
+
+            var location = await _locationService.GetById(id);
+
+            if (location == null)
+            {
+                return NotFound($"No location with the Id: {id}");
+            }
+
+            await _locationService.Update(location, locationDTO);
+
+
+            return NoContent();
+
+
+        }
     }
 }

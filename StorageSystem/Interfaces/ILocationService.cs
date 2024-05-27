@@ -1,4 +1,5 @@
-﻿using StorageSystem.Models;
+﻿using StorageSystem.Dtos;
+using StorageSystem.Models;
 
 namespace StorageSystem.Interfaces
 {
@@ -11,7 +12,7 @@ namespace StorageSystem.Interfaces
 
         Task<Location> Create(Location location);
 
-        Task<Location> Update(Location location);
+        Task<Location> Update(Location location, CreateLocationDTO locationDTO);
 
         Task<Location> Delete(int id);
     }

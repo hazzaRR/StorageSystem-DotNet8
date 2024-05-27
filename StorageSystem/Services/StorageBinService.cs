@@ -18,7 +18,7 @@ namespace StorageSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task<StorageBin> Delete(Guid id)
+        public Task<StorageBin> Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace StorageSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task<StorageBin> GetById(Guid id)
+        public Task<StorageBin> GetById(int id)
         {
             throw new NotImplementedException();
         }

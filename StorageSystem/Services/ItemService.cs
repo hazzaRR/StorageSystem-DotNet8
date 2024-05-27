@@ -19,7 +19,7 @@ namespace StorageSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task<Item> Delete(Guid id)
+        public Task<Item> Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +29,7 @@ namespace StorageSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task<Item> GetById(Guid id)
+        public Task<Item> GetById(int id)
         {
             throw new NotImplementedException();
         }

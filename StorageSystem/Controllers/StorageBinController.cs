@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StorageSystem.Interfaces;
 
 namespace StorageSystem.Controllers
 {
@@ -8,10 +9,20 @@ namespace StorageSystem.Controllers
     public class StorageBinController : ControllerBase
     {
 
-        [HttpGet]
-        public IActionResult index()
+        private IStorageBinService _storageBinService;
+
+        public StorageBinController(IStorageBinService storageBinService)
         {
-            return Ok("hello world");
+            _storageBinService = storageBinService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+
+            var bins = await _storageBinService.GetAll();
+
+            return Ok(bins);
         }
     }
 }
