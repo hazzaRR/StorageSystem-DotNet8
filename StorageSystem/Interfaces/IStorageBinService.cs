@@ -1,4 +1,5 @@
 ﻿using StorageSystem.Models;
+using StorageSystem.Dtos;
 
 namespace StorageSystem.Interfaces
 {
@@ -9,9 +10,9 @@ namespace StorageSystem.Interfaces
 
         Task<List<StorageBin>> GetAll();
 
-        Task<StorageBin> Create(Item item);
+        Task<StorageBin> Create(CreateStorageBinDto storageBin);
 
-        Task<StorageBin> Update(Item item);
+        Task<StorageBin> Update(StorageBin storageBin);
 
         Task<StorageBin> Delete(int id);
 

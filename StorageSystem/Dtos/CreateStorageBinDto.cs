@@ -1,12 +1,9 @@
-﻿using StorageSystem.Models;
-using System.Data;
+﻿using System.Data;
 
 namespace StorageSystem.Dtos
 {
     public class CreateStorageBinDto
     {
-        public int LocationId { get; set; }
-
-        public Location Location {  get; set; }
+        public LocationDTO LocationDto {  get; set; }
     }
 }

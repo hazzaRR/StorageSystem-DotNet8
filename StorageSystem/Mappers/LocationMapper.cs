@@ -18,6 +18,18 @@ namespace StorageSystem.Mappers
 
         }
 
+        public static Location ToLocation(this LocationDTO locationDto)
+        {
+
+            Location location = new()
+            {
+                Name = locationDto.Name
+            };
+
+            return location;
+
+        }
+
         public static LocationDTO ToLocationDTO(this Location location)
         {
 

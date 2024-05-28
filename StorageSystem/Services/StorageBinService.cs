@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
 using StorageSystem.Models;
 
@@ -14,9 +15,22 @@ namespace StorageSystem.Services
             _context = context;
         }
 
-        public Task<StorageBin> Create(Item item)
+        public async Task<StorageBin> Create(CreateStorageBinDto storageBinDto)
         {
-            throw new NotImplementedException();
+            Location location = await _context.Location.FirstOrDefaultAsync(location => location.Id == storageBinDto.LocationDto.Id);
+
+            if (location == null)
+            {
+                return null;
+            }
+            StorageBin storageBin = new StorageBin()
+            {
+                Location = location
+            };
+            await _context.StorageBin.AddAsync(storageBin);
+            await _context.SaveChangesAsync();
+
+            return storageBin;
         }
 
         public Task<StorageBin> Delete(int id)
@@ -34,7 +48,7 @@ namespace StorageSystem.Services
             return await _context.StorageBin.FirstOrDefaultAsync(bin => bin.Id == id);
         }
 
-        public Task<StorageBin> Update(Item item)
+        public Task<StorageBin> Update(StorageBin storageBin)
         {
             throw new NotImplementedException();
         }

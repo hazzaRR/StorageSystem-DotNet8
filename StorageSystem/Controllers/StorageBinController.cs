@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
+using StorageSystem.Mappers;
+using StorageSystem.Models;
 
 namespace StorageSystem.Controllers
 {
@@ -36,6 +39,23 @@ namespace StorageSystem.Controllers
             }
 
             return Ok(bin);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateStorageBinDto storageBinDto)
+        {
+
+
+            var storageBinModel = await _storageBinService.Create(storageBinDto);
+
+            if (storageBinModel == null)
+            {
+                return NotFound($"Location with Id {storageBinDto.LocationDto.Id} not found.");
+            }
+
+
+            return Created("", storageBinModel);
+
         }
     }
 }
