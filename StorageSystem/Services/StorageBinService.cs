@@ -48,9 +48,27 @@ namespace StorageSystem.Services
             return await _context.StorageBin.FirstOrDefaultAsync(bin => bin.Id == id);
         }
 
-        public Task<StorageBin> Update(StorageBin storageBin)
+        public async Task<StorageBin> Update(int id, int locationId)
         {
-            throw new NotImplementedException();
+            StorageBin? storageBin = await _context.StorageBin.FirstOrDefaultAsync(bin => bin.Id == id);
+
+            if (storageBin == null)
+            {
+                return null;
+            }
+
+            Location? location = await _context.Location.FirstOrDefaultAsync(location => location.Id == locationId);
+
+            if (location == null)
+            {
+                return null;
+            }
+
+            storageBin.Location = location;
+
+            await _context.SaveChangesAsync();
+
+            return storageBin;
         }
     }
 }

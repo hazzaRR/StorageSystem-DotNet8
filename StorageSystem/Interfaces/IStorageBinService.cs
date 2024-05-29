@@ -12,7 +12,7 @@ namespace StorageSystem.Interfaces
 
         Task<StorageBin> Create(CreateStorageBinDto storageBin);
 
-        Task<StorageBin> Update(StorageBin storageBin);
+        Task<StorageBin> Update(int id, int locationId);
 
         Task<StorageBin> Delete(int id);
 

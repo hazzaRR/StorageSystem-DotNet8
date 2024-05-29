@@ -57,5 +57,23 @@ namespace StorageSystem.Controllers
             return Created("", storageBinModel);
 
         }
+
+        [HttpPut("{id}/{locationId}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromRoute] int locationId)
+        {
+
+            var storageBinModel = await _storageBinService.Update(id, locationId);
+
+            if (storageBinModel == null)
+            {
+                return NotFound($"Storage Bin with Id {id} not found.");
+            }
+
+
+            return NoContent();
+
+
+        }
+
     }
 }
