@@ -28,5 +28,20 @@ namespace StorageSystem.Controllers
         }
 
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+           Models.Item? item = await _itemService.GetById(id);
+
+
+            if (item == null)
+            {
+                return NotFound($"No Item with the id {id} was found");
+            }
+
+            return Ok(item);
+        }
+
+
     }
 }

@@ -30,9 +30,9 @@ namespace StorageSystem.Services
             return await _context.Item.ToListAsync();
         }
 
-        public Task<Item> GetById(int id)
+        public async Task<Item?> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Item.FirstOrDefaultAsync(item => item.Id == id);
         }
 
         public Task<Item> Update(Item item)

@@ -5,7 +5,7 @@ namespace StorageSystem.Interfaces
     public interface IItemService
     {
 
-        Task<Item> GetById(int id);
+        Task<Item?> GetById(int id);
 
         Task<List<Item>> GetAll();
 
