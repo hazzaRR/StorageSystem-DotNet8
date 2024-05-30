@@ -1,4 +1,5 @@
-﻿using StorageSystem.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using StorageSystem.Interfaces;
 using StorageSystem.Models;
 
 namespace StorageSystem.Services
@@ -24,9 +25,9 @@ namespace StorageSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Item>> GetAll()
+        public async Task<List<Item>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Item.ToListAsync();
         }
 
         public Task<Item> GetById(int id)
