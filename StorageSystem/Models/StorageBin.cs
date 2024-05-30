@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
+using System.Text.Json.Serialization;
 
 namespace StorageSystem.Models
 {
@@ -11,7 +12,9 @@ namespace StorageSystem.Models
         [Column("id")]
         public int Id { get; set; }
 
+
         [Column("locationId")]
+        [JsonIgnore]
         public int LocationId { get; set; }
 
         public required Location Location { get; set; } = null!;

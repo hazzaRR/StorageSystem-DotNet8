@@ -75,5 +75,21 @@ namespace StorageSystem.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+
+            StorageBin? storageBinModel = await _storageBinService.Delete(id);
+
+            if (storageBinModel == null)
+            {
+                return NotFound($"Could not find Storage bin with id: {id}");
+            }
+
+            return Ok(storageBinModel);
+
+        }
+
+
     }
 }

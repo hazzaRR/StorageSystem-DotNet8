@@ -33,9 +33,20 @@ namespace StorageSystem.Services
             return storageBin;
         }
 
-        public Task<StorageBin> Delete(int id)
+        public async Task<StorageBin> Delete(int id)
         {
-            throw new NotImplementedException();
+            StorageBin? storageBin = await _context.StorageBin.FirstOrDefaultAsync(bin => bin.Id == id);
+
+            if (storageBin == null)
+            {
+                return null;
+            }
+
+            _context.Remove(storageBin);
+
+            await _context.SaveChangesAsync();
+
+            return storageBin;
         }
 
         public async Task<List<StorageBin>> GetAll()
