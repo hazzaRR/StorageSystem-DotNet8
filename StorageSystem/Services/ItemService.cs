@@ -20,9 +20,20 @@ namespace StorageSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task<Item> Delete(int id)
+        public async Task<Item> Delete(int id)
         {
-            throw new NotImplementedException();
+            Item? item = await _context.Item.FirstOrDefaultAsync(item => item.Id == id);
+
+            if (item == null)
+            {
+                return null;
+            }
+
+            _context.Item.Remove(item);
+
+            await _context.SaveChangesAsync();
+
+            return item;
         }
 
         public async Task<List<Item>> GetAll()

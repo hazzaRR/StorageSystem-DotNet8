@@ -12,7 +12,7 @@ namespace StorageSystem.Controllers
     public class StorageBinController : ControllerBase
     {
 
-        private IStorageBinService _storageBinService;
+        private readonly IStorageBinService _storageBinService;
 
         public StorageBinController(IStorageBinService storageBinService)
         {
