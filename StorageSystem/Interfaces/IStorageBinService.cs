@@ -10,7 +10,7 @@ namespace StorageSystem.Interfaces
 
         Task<List<StorageBin>> GetAll();
 
-        Task<StorageBin> Create(CreateStorageBinDto storageBin);
+        Task<StorageBin> Create(CreateStorageBinDTO storageBin);
 
         Task<StorageBin> Update(int id, int locationId);
 

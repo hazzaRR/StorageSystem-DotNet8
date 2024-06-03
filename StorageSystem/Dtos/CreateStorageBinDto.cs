@@ -2,7 +2,7 @@
 
 namespace StorageSystem.Dtos
 {
-    public class CreateStorageBinDto
+    public class CreateStorageBinDTO
     {
         public LocationDTO LocationDto {  get; set; }
     }

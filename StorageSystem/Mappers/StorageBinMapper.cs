@@ -7,7 +7,7 @@ namespace StorageSystem.Mappers
     public static class StorageBinMapper
     {
 
-        public static StorageBin ToStorageBin(this CreateStorageBinDto storageBinDTO)
+        public static StorageBin ToStorageBin(this CreateStorageBinDTO storageBinDTO)
         {
             StorageBin storageBin = new StorageBin()
             {

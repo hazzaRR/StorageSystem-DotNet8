@@ -12,7 +12,7 @@ namespace StorageSystem.Controllers
     {
 
 
-        private ILocationService _locationService;
+        private readonly ILocationService _locationService;
 
 
         public LocationController(ILocationService locationService)

@@ -42,7 +42,7 @@ namespace StorageSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateStorageBinDto storageBinDto)
+        public async Task<IActionResult> Create([FromBody] CreateStorageBinDTO storageBinDto)
         {
 
 

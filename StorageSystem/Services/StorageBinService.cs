@@ -15,7 +15,7 @@ namespace StorageSystem.Services
             _context = context;
         }
 
-        public async Task<StorageBin> Create(CreateStorageBinDto storageBinDto)
+        public async Task<StorageBin> Create(CreateStorageBinDTO storageBinDto)
         {
             Location location = await _context.Location.FirstOrDefaultAsync(location => location.Id == storageBinDto.LocationDto.Id);
 
