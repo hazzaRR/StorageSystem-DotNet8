@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
 using StorageSystem.Models;
 
@@ -15,9 +17,14 @@ namespace StorageSystem.Services
             _context = context;
         }
 
-        public Task<Item> Create(Item item)
+        public async Task<Item> Create(Item item)
         {
-            throw new NotImplementedException();
+            var itemModel = _context.Item.AddAsync(item);
+
+            await _context.SaveChangesAsync();
+
+            return item;
+
         }
 
         public async Task<Item> Delete(int id)

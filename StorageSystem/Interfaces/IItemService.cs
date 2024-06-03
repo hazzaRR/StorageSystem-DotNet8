@@ -1,4 +1,5 @@
-﻿using StorageSystem.Models;
+﻿using StorageSystem.Dtos;
+using StorageSystem.Models;
 
 namespace StorageSystem.Interfaces
 {

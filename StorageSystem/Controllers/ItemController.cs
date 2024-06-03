@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
+using StorageSystem.Mappers;
 using StorageSystem.Models;
+using StorageSystem.Services;
 
 namespace StorageSystem.Controllers
 {
@@ -12,11 +15,13 @@ namespace StorageSystem.Controllers
 
 
         private readonly IItemService _itemService;
+        private readonly IItemStorageBinService _itemStorageBinService;
 
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService, IItemStorageBinService itemStorageBinService)
         {
             _itemService = itemService;
+            _itemStorageBinService = itemStorageBinService;
         }
 
 
@@ -57,6 +62,22 @@ namespace StorageSystem.Controllers
 
             return NoContent();
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateItemDTO itemDTO)
+        {
+            var item = await _itemService.Create(itemDTO.ToItem());
+
+
+            if (itemDTO.StorageBinsId.Count > 0)
+            {
+
+                await _itemStorageBinService.Add(item, itemDTO.StorageBinsId);
+            }
+
+
+            return Created();
         }
 
     }
