@@ -19,6 +19,8 @@ namespace StorageSystem.Models
 
         public required Location Location { get; set; } = null!;
 
+
+        [JsonIgnore]
         public ICollection<Item> Items { get; } = new List<Item>();
 
     }

@@ -5,7 +5,7 @@ namespace StorageSystem.Models
 {
 
 
-    [Table("item_storagebin")]
+    [Table("ItemStorageBin")]
     public class ItemStorageBin
     {
 
@@ -15,7 +15,5 @@ namespace StorageSystem.Models
 
         [Column("binId")]
         public int StorageBinId { get; set; }
-        public StorageBin StorageBin { get; set; } = null!;
-        public Item Item { get; set; } = null!;
     }
 }

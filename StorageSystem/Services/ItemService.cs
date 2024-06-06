@@ -45,12 +45,15 @@ namespace StorageSystem.Services
 
         public async Task<List<Item>> GetAll()
         {
-            return await _context.Item.ToListAsync();
+            return await _context.Item
+                .Include(item => item.StorageBins)
+                .ThenInclude(bin => bin.Location)
+                .ToListAsync();
         }
 
         public async Task<Item?> GetById(int id)
         {
-            return await _context.Item.FirstOrDefaultAsync(item => item.Id == id);
+            return await _context.Item.Include(item => item.StorageBins).FirstOrDefaultAsync(item => item.Id == id);
         }
 
         public Task<Item> Update(Item item)

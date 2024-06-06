@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace StorageSystem.Models
 {
@@ -25,10 +26,13 @@ namespace StorageSystem.Models
                 .HasKey(sb => sb.Id);
 
             modelBuilder.Entity<Item>()
-                .HasKey(i => i.Id);
+            .HasKey(i => i.Id);
 
-            modelBuilder.Entity<ItemStorageBin>()
-                .HasKey(isb => new { isb.ItemId, isb.StorageBinId });
+            modelBuilder.Entity<Item>()
+            .HasMany(e => e.StorageBins)
+            .WithMany(e => e.Items)
+            .UsingEntity<ItemStorageBin>();
+
         }
     }
 }

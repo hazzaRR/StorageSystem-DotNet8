@@ -29,6 +29,10 @@ namespace StorageSystem.Controllers
         public async Task<IActionResult> GetAll()
         {
             var items = await _itemService.GetAll();
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.WriteLine(items[i].StorageBins.ToList().Count);
+            }
             return Ok(items);
 
         }
