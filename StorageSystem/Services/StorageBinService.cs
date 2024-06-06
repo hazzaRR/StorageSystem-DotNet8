@@ -51,12 +51,12 @@ namespace StorageSystem.Services
 
         public async Task<List<StorageBin>> GetAll()
         {
-            return await _context.StorageBin.ToListAsync();
+            return await _context.StorageBin.Include(bin => bin.Location).ToListAsync();
         }
 
         public async Task<StorageBin> GetById(int id)
         {
-            return await _context.StorageBin.FirstOrDefaultAsync(bin => bin.Id == id);
+            return await _context.StorageBin.Include(bin => bin.Location).FirstOrDefaultAsync(bin => bin.Id == id);
         }
 
         public async Task<StorageBin> Update(int id, int locationId)
