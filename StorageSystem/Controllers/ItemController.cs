@@ -77,7 +77,7 @@ namespace StorageSystem.Controllers
             if (itemDTO.StorageBinsId.Count > 0)
             {
 
-                await _itemStorageBinService.Add(item, itemDTO.StorageBinsId);
+                await _itemStorageBinService.AddToMultipleBins(item.Id, itemDTO.StorageBinsId);
             }
 
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StorageSystem.Services;
+using StorageSystem.Interfaces;
 
 namespace StorageSystem.Controllers
 {
@@ -10,12 +10,29 @@ namespace StorageSystem.Controllers
     {
 
 
-        private readonly ItemStorageBinService _itemStorageBinService;
+        private readonly IItemStorageBinService _itemStorageBinService;
 
 
-        public ItemStorageBinController(ItemStorageBinService itemStorageBinService)
+        public ItemStorageBinController(IItemStorageBinService itemStorageBinService)
         {
             _itemStorageBinService = itemStorageBinService;
         }
+
+
+        [HttpPost("/{itemId}/{binId}")]
+        public async Task<IActionResult> AddItemToBin([FromRoute] int itemId, [FromRoute] int binId)
+        {
+
+            var result = await _itemStorageBinService.Add(itemId, binId);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+
+            return Ok("Item successfully added to bin");
+        }
+
+
     }
 }

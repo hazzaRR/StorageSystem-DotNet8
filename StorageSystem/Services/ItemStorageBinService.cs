@@ -14,14 +14,36 @@ namespace StorageSystem.Services
             _context = context;
         }
 
-        public async Task<bool> Add(Item item, List<int> binList)
+        public async Task<bool> Add(int itemId, int binId)
+        {
+            ItemStorageBin ItemStorageBin = new ItemStorageBin()
+            {
+                ItemId = itemId,
+                StorageBinId = binId
+            };
+
+
+            var model = await _context.ItemStorageBin.AddAsync(ItemStorageBin);
+
+            if (model == null)
+            {
+                return false;
+            }
+
+            await _context.SaveChangesAsync();
+
+
+            return true;
+        }
+
+        public async Task<bool> AddToMultipleBins(int itemId, List<int> binList)
         {
             for (int i = 0; i < binList.Count; i++)
             {
 
                 ItemStorageBin ItemStorageBin = new ItemStorageBin()
                 {
-                    ItemId = item.Id,
+                    ItemId = itemId,
                     StorageBinId = binList[i]
                 };
 
