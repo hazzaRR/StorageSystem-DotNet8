@@ -1,4 +1,5 @@
-﻿using StorageSystem.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using StorageSystem.Interfaces;
 using StorageSystem.Models;
 
 namespace StorageSystem.Services
@@ -59,6 +60,22 @@ namespace StorageSystem.Services
 
             await _context.SaveChangesAsync();
 
+
+            return true;
+        }
+
+        public async Task<bool> Delete(int itemId, int binId)
+        {
+            ItemStorageBin? itemStorageBin = await _context.ItemStorageBin.FirstOrDefaultAsync(x => x.ItemId == itemId && x.StorageBinId == binId);
+
+            if (itemStorageBin == null)
+            {
+                return false; 
+            }
+
+            _context.ItemStorageBin.Remove(itemStorageBin);
+
+            await _context.SaveChangesAsync();
 
             return true;
         }

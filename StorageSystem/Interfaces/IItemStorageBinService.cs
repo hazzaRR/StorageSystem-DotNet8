@@ -7,5 +7,6 @@ namespace StorageSystem.Interfaces
         public Task<bool> AddToMultipleBins(int itemId, List<int> binList);
 
         public Task<bool> Add(int itemId, int binId);
+        public Task<bool> Delete(int itemId, int binId);
     }
 }

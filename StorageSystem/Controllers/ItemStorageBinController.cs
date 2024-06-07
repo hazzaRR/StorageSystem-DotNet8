@@ -4,7 +4,7 @@ using StorageSystem.Interfaces;
 
 namespace StorageSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/item-bin")]
     [ApiController]
     public class ItemStorageBinController : ControllerBase
     {
@@ -32,6 +32,21 @@ namespace StorageSystem.Controllers
 
             return Ok("Item successfully added to bin");
         }
+
+        [HttpDelete("/{itemId}/{binId}")]
+        public async Task<IActionResult> DeleteItemToBin([FromRoute] int itemId, [FromRoute] int binId)
+        {
+
+            var result = await _itemStorageBinService.Delete(itemId, binId);
+
+            if (!result)
+            {
+                return BadRequest($"The Item with the id: {itemId} was not found in bin {binId}");
+            }
+
+            return Ok("Successfully delete item from bin");
+        }
+
 
 
     }
