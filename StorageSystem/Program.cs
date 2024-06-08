@@ -29,6 +29,16 @@ var Configuration = builder.Configuration;
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(DbConnectionString));
 
+builder.Services.AddAuthorization();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services
+    .AddIdentityApiEndpoints<ApplicationUser>(options => { })
+    .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options => { options.Cookie.SameSite = SameSiteMode.None; });
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
