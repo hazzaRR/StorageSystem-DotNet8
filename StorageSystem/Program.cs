@@ -3,6 +3,7 @@ using System;
 using StorageSystem.Models;
 using StorageSystem.Interfaces;
 using StorageSystem.Services;
+using StorageSystem.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.MapCustomisedIdentityApi<ApplicationUser>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
