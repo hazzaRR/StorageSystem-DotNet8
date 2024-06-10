@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StorageSystem.Interfaces;
 
@@ -20,6 +21,7 @@ namespace StorageSystem.Controllers
 
 
         [HttpPost("/{itemId}/{binId}")]
+        [Authorize]
         public async Task<IActionResult> AddItemToBin([FromRoute] int itemId, [FromRoute] int binId)
         {
 
@@ -34,6 +36,7 @@ namespace StorageSystem.Controllers
         }
 
         [HttpDelete("/{itemId}/{binId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteItemToBin([FromRoute] int itemId, [FromRoute] int binId)
         {
 
