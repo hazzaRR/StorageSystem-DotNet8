@@ -7,6 +7,7 @@ namespace StorageSystem.Controllers
 {
     [Route("api/item-bin")]
     [ApiController]
+    [Authorize]
     public class ItemStorageBinController : ControllerBase
     {
 
@@ -21,7 +22,6 @@ namespace StorageSystem.Controllers
 
 
         [HttpPost("/{itemId}/{binId}")]
-        [Authorize]
         public async Task<IActionResult> AddItemToBin([FromRoute] int itemId, [FromRoute] int binId)
         {
 
@@ -36,7 +36,6 @@ namespace StorageSystem.Controllers
         }
 
         [HttpDelete("/{itemId}/{binId}")]
-        [Authorize]
         public async Task<IActionResult> DeleteItemToBin([FromRoute] int itemId, [FromRoute] int binId)
         {
 

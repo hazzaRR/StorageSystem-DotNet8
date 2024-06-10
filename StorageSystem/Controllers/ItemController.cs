@@ -9,6 +9,7 @@ namespace StorageSystem.Controllers
 {
     [Route("api/item")]
     [ApiController]
+    [Authorize]
     public class ItemController : ControllerBase
     {
 

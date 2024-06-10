@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
@@ -8,6 +9,7 @@ namespace StorageSystem.Controllers
 {
     [Route("api/location")]
     [ApiController]
+    [Authorize]
     public class LocationController : ControllerBase
     {
 
