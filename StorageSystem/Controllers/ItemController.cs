@@ -27,7 +27,6 @@ namespace StorageSystem.Controllers
 
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var items = await _itemService.GetAll();
@@ -41,7 +40,6 @@ namespace StorageSystem.Controllers
 
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
            Item? item = await _itemService.GetById(id);
@@ -56,7 +54,6 @@ namespace StorageSystem.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
 
@@ -73,7 +70,6 @@ namespace StorageSystem.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateItemDTO itemDTO)
         {
             var item = await _itemService.Create(itemDTO.ToItem());
@@ -87,6 +83,18 @@ namespace StorageSystem.Controllers
 
 
             return Created();
+        }
+
+        [HttpPut("quantity/{id}")]
+        public async Task<IActionResult> UpdateQuantity([FromRoute] int id, [FromBody] int quantity)
+        {
+            var item = await _itemService.UpdateQuantity(id, quantity);
+
+
+
+
+
+            return Ok();
         }
 
     }

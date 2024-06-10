@@ -60,5 +60,23 @@ namespace StorageSystem.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Item> UpdateQuantity(int id, int quantity)
+        {
+            Item? itemModel = await _context.Item.FirstOrDefaultAsync(item => item.Id == id);
+
+
+            if (itemModel == null)
+            {
+                return null;
+            }
+
+            itemModel.Quantity = quantity;
+
+            await _context.SaveChangesAsync();
+
+
+            return itemModel;
+        }
     }
 }

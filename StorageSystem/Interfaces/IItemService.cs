@@ -14,6 +14,8 @@ namespace StorageSystem.Interfaces
 
         Task<Item> Update(Item item);
 
+        Task<Item> UpdateQuantity(int id, int quantity);
+
         Task<Item> Delete(int id);
 
     }
