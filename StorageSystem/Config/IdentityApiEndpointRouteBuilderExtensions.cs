@@ -58,7 +58,7 @@ namespace StorageSystem.Config
 
             // NOTE: We cannot inject UserManager<TUser> directly because the TUser generic parameter is currently unsupported by RDG.
             // https://github.com/dotnet/aspnetcore/issues/47338
-            routeGroup.MapPost("/register", async Task<Results<Ok, ValidationProblem>>
+            routeGroup.MapPost("/api/auth/register", async Task<Results<Ok, ValidationProblem>>
                 ([FromBody] RegisterRequest registration, HttpContext context, [FromServices] IServiceProvider sp) =>
             {
                 var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -91,7 +91,7 @@ namespace StorageSystem.Config
                 return TypedResults.Ok();
             });
 
-            routeGroup.MapPost("/login", async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>>
+            routeGroup.MapPost("/api/auth/login", async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>>
                 ([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, [FromServices] IServiceProvider sp) =>
             {
                 var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
@@ -123,7 +123,7 @@ namespace StorageSystem.Config
                 return TypedResults.Empty;
             });
 
-            routeGroup.MapPost("/refresh", async Task<Results<Ok<AccessTokenResponse>, UnauthorizedHttpResult, SignInHttpResult, ChallengeHttpResult>>
+            routeGroup.MapPost("/api/auth/refresh", async Task<Results<Ok<AccessTokenResponse>, UnauthorizedHttpResult, SignInHttpResult, ChallengeHttpResult>>
                 ([FromBody] RefreshRequest refreshRequest, [FromServices] IServiceProvider sp) =>
             {
                 var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
@@ -143,7 +143,7 @@ namespace StorageSystem.Config
                 return TypedResults.SignIn(newPrincipal, authenticationScheme: IdentityConstants.BearerScheme);
             });
 
-            routeGroup.MapGet("/confirmEmail", async Task<Results<ContentHttpResult, UnauthorizedHttpResult>>
+            routeGroup.MapGet("/api/auth/confirmEmail", async Task<Results<ContentHttpResult, UnauthorizedHttpResult>>
                 ([FromQuery] string userId, [FromQuery] string code, [FromQuery] string? changedEmail, [FromServices] IServiceProvider sp) =>
             {
                 var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -194,7 +194,7 @@ namespace StorageSystem.Config
                 endpointBuilder.Metadata.Add(new EndpointNameMetadata(confirmEmailEndpointName));
             });
 
-            routeGroup.MapPost("/resendConfirmationEmail", async Task<Ok>
+            routeGroup.MapPost("/api/auth/resendConfirmationEmail", async Task<Ok>
                 ([FromBody] ResendConfirmationEmailRequest resendRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
             {
                 var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -207,7 +207,7 @@ namespace StorageSystem.Config
                 return TypedResults.Ok();
             });
 
-            routeGroup.MapPost("/forgotPassword", async Task<Results<Ok, ValidationProblem>>
+            routeGroup.MapPost("/api/auth/forgotPassword", async Task<Results<Ok, ValidationProblem>>
                 ([FromBody] ForgotPasswordRequest resetRequest, [FromServices] IServiceProvider sp) =>
             {
                 var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -226,7 +226,7 @@ namespace StorageSystem.Config
                 return TypedResults.Ok();
             });
 
-            routeGroup.MapPost("/resetPassword", async Task<Results<Ok, ValidationProblem>>
+            routeGroup.MapPost("/api/auth/resetPassword", async Task<Results<Ok, ValidationProblem>>
                 ([FromBody] ResetPasswordRequest resetRequest, [FromServices] IServiceProvider sp) =>
             {
                 var userManager = sp.GetRequiredService<UserManager<TUser>>();
