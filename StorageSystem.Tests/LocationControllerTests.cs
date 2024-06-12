@@ -1,6 +1,8 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
 using StorageSystem.Controllers;
 using StorageSystem.Interfaces;
+using StorageSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,43 @@ namespace StorageSystem.Tests
         {
             _locationService = new Mock<ILocationService>();
             _locationController = new LocationController(_locationService.Object);
+        }
+
+
+        [Fact]
+        public async void GetAllLocations_ReturnsOkAndList()
+        {
+            //Arrange
+
+            List<Location> locations = new List<Location>()
+            {
+                new Location
+                {
+                    Id = 1,
+                    Name = "Garage"
+                },
+                new Location
+                {
+                    Id = 2,
+                    Name = "Attic"
+                },
+            };
+
+
+            _locationService.Setup(service => service.GetAll())
+                .ReturnsAsync(locations);
+
+            //Act
+
+            var result = await _locationController.GetAll();
+
+            //Assert
+
+            Assert.IsType<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+
+            Assert.NotNull(okResult);
+            Assert.Equal(locations, okResult.Value);
         }
     }
 }
