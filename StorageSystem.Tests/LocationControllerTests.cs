@@ -60,5 +60,64 @@ namespace StorageSystem.Tests
             Assert.NotNull(okResult);
             Assert.Equal(locations, okResult.Value);
         }
+
+
+        [Fact]
+        public async void GetLocationById_ReturnsOkAndLocationObject()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Garage"
+            };
+
+            _locationService.Setup(service => service.GetById(location.Id)).
+                ReturnsAsync(location);
+
+            //Act
+
+            var result = await _locationController.GetById(location.Id);
+
+
+
+            //Assert
+
+            Assert.IsType<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+
+            Assert.NotNull(okResult);
+            Assert.Equal(location, okResult.Value);
+        }
+
+        [Fact]
+        public async void GetLocationById_ReturnsNotFound()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Garage"
+            };
+
+            _locationService.Setup(service => service.GetById(location.Id)).
+                ReturnsAsync(() => null);
+
+            //Act
+
+            var result = await _locationController.GetById(location.Id);
+
+
+
+            //Assert
+
+            Assert.IsType<NotFoundResult>(result);
+
+            var notFoundResult = result as NotFoundResult;
+
+            Assert.NotNull(notFoundResult);
+        }
     }
 }
