@@ -195,5 +195,48 @@ namespace StorageSystem.Tests
 
             Assert.NotNull(noContentResult);
         }
+
+        [Fact]
+        public async void UpdateLocation_ReturnsNotFound()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+
+            CreateLocationDTO locationDTO = new CreateLocationDTO
+            {
+                Name = "Garage"
+            };
+
+
+            Location updatedLocation = new Location
+            {
+                Id = 1,
+                Name = "Garage"
+            };
+
+
+            _locationService.Setup(service => service.GetById(location.Id))
+                .ReturnsAsync(() => null);
+
+
+            //Act
+
+
+            var result = await _locationController.Update(location.Id, locationDTO);
+
+            //Assert
+
+            Assert.IsType<NotFoundObjectResult>(result);
+
+            var notFoundResult = result as NotFoundObjectResult;
+
+            Assert.NotNull(notFoundResult);
+        }
     }
 }
