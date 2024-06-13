@@ -119,5 +119,35 @@ namespace StorageSystem.Tests
 
             Assert.NotNull(notFoundResult);
         }
+
+        [Fact]
+        public async void DeleteLocation_ReturnsNoContent()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            _locationService.Setup(service => service.Delete(location.Id))
+                .ReturnsAsync(location);
+
+            //Act
+
+
+            var result = await _locationController.Delete(location.Id);
+
+
+            Assert.IsType<NoContentResult>(result);
+
+            var notContentResult = result as NoContentResult;
+
+            Assert.NotNull(notContentResult);
+
+
+            //Assert
+        }
     }
 }
