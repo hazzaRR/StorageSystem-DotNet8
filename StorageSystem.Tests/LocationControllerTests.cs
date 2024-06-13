@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StorageSystem.Controllers;
+using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
 using StorageSystem.Models;
 using System;
@@ -148,6 +149,51 @@ namespace StorageSystem.Tests
 
 
             //Assert
+        }
+
+        [Fact]
+        public async void UpdateLocation_ReturnsNoContent()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+
+            CreateLocationDTO locationDTO = new CreateLocationDTO
+            {
+                Name = "Garage"
+            };
+
+
+            Location updatedLocation = new Location
+            {
+                Id = 1,
+                Name = "Garage"
+            };
+
+
+            _locationService.Setup(service => service.GetById(location.Id))
+                .ReturnsAsync(location);
+
+            _locationService.Setup(service => service.Update(location, locationDTO))
+                .ReturnsAsync(updatedLocation);
+
+            //Act
+
+            
+            var result = await _locationController.Update(location.Id, locationDTO);
+
+            //Assert
+
+            Assert.IsType<NoContentResult>(result);
+
+            var noContentResult = result as NoContentResult;
+
+            Assert.NotNull(noContentResult);
         }
     }
 }
