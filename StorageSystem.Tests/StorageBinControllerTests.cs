@@ -1,6 +1,8 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
 using StorageSystem.Controllers;
 using StorageSystem.Interfaces;
+using StorageSystem.Models;
 using StorageSystem.Services;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,50 @@ namespace StorageSystem.Tests
         {
             _storageBinService = new Mock<IStorageBinService>();
             _storageBinController = new StorageBinController(_storageBinService.Object);
+        }
+
+
+        [Fact]
+        public async void GetAllStorageBins_ReturnsOkAndList()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Garage"
+
+            };
+            List<StorageBin> bins = new List<StorageBin>()
+            {
+                new StorageBin
+                {
+                    Id = 1,
+                    Location = location,
+                },
+                new StorageBin
+                {
+                    Id = 2,
+                    Location = location,
+                }
+            };
+
+
+            _storageBinService.Setup(service => service.GetAll())
+                .ReturnsAsync(bins);
+
+            //Act
+
+            var result = await _storageBinController.GetAll();
+
+            //Assert
+
+            Assert.IsType<OkObjectResult>(result);
+
+            var okResult = result as OkObjectResult;
+
+            Assert.NotNull(okResult);
+            Assert.Equal(bins, okResult.Value);
         }
 
 
