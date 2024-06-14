@@ -70,5 +70,72 @@ namespace StorageSystem.Tests
         }
 
 
+        [Fact]
+        public async void GetStorageBinById_ReturnsOkAndObject()
+        {
+            //Arrange
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = new Location
+                {
+                    Id = 1,
+                    Name = "Garage"
+
+                }
+            };
+
+
+            _storageBinService.Setup(service => service.GetById(bin.Id))
+                .ReturnsAsync(bin);
+
+
+            //Act
+            var result = await _storageBinController.GetById(bin.Id);
+
+            //Assert
+
+            Assert.IsType<OkObjectResult>(result);
+
+            var okResult = result as OkObjectResult;
+
+            Assert.NotNull(okResult);
+            Assert.Equal(bin, okResult.Value);
+
+        }
+
+        [Fact]
+        public async void GetStorageBinById_ReturnsNotFound()
+        {
+            //Arrange
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = new Location
+                {
+                    Id = 1,
+                    Name = "Garage"
+
+                }
+            };
+
+
+            _storageBinService.Setup(service => service.GetById(bin.Id))
+                .ReturnsAsync(() => null);
+
+
+            //Act
+            var result = await _storageBinController.GetById(bin.Id);
+
+            //Assert
+
+            Assert.IsType<NotFoundObjectResult>(result);
+
+            var notFoundResult = result as NotFoundObjectResult;
+
+            Assert.NotNull(notFoundResult);
+
+        }
+
     }
 }
