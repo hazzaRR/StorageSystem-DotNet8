@@ -137,5 +137,37 @@ namespace StorageSystem.Tests
 
         }
 
+        [Fact]
+        public async void DeleteStorageBin_ReturnsNoContent()
+        {
+            //Arrange
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = new Location
+                {
+                    Id = 1,
+                    Name = "Garage"
+
+                }
+            };
+
+            _storageBinService.Setup(service => service.Delete(bin.Id))
+                .ReturnsAsync(bin);
+            //Act
+
+            var result = await _storageBinController.Delete(bin.Id);
+
+
+            //Assert
+
+            Assert.IsType<NoContentResult>(result);
+
+            var noContentResult = result as NoContentResult;
+
+            Assert.NotNull(noContentResult);
+        }
+
     }
 }

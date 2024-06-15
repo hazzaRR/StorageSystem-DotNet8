@@ -88,7 +88,7 @@ namespace StorageSystem.Controllers
                 return NotFound($"Could not find Storage bin with id: {id}");
             }
 
-            return Ok(storageBinModel);
+            return NoContent();
 
         }
 
