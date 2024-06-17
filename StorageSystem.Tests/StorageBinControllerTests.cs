@@ -201,5 +201,44 @@ namespace StorageSystem.Tests
             Assert.NotNull(notFoundResult);
         }
 
+        [Fact]
+        public async void UpdateStorageBin_ReturnsNoContent()
+        {
+            //Arrange
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = new Location
+                {
+                    Id = 1,
+                    Name = "Garage"
+
+                }
+            };
+
+            Location newLocation = new Location
+            {
+                Id = 2,
+                Name = "Attic"
+            };
+
+            _storageBinService.Setup(service => service.Update(bin.Id, newLocation.Id))
+                .ReturnsAsync(bin);
+
+            //Act
+
+
+            var result = await _storageBinController.Update(bin.Id, newLocation.Id);
+
+            //Assert
+
+            Assert.IsType<NoContentResult>(result);
+
+            var noContentReuslt = result as NoContentResult;
+            Assert.NotNull(noContentReuslt);
+
+        }
+
     }
 }
