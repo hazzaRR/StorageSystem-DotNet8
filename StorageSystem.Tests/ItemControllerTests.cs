@@ -81,6 +81,54 @@ namespace StorageSystem.Tests
 
         }
 
+
+        [Fact]
+        public async void GetAllItems_ReturnsOk_AndObject()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = location
+            };
+
+
+            Item item = new Item
+            {
+                Id = 1,
+                Name = "Zip Ties",
+                Quantity = 4
+            };
+
+
+            _itemService.Setup(service => service.GetById(item.Id))
+                .ReturnsAsync(item);
+
+            //Act
+
+
+            var result = await _itemController.GetById(item.Id);
+
+
+            //Assert
+
+            Assert.IsType<OkObjectResult>(result);
+
+            var okResult = (OkObjectResult)result;
+
+            Assert.NotNull(okResult);
+
+            Assert.Equal(item, okResult.Value);
+
+        }
+
     }
 
 }
