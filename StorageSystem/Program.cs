@@ -6,6 +6,7 @@ using StorageSystem.Services;
 using StorageSystem.Config;
 
 var builder = WebApplication.CreateBuilder(args);
+var allowedOrigins = "allowedOrigins";
 
 string? DbConnectionString;
 
@@ -42,6 +43,23 @@ builder.Services.ConfigureApplicationCookie(options => { options.Cookie.SameSite
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: allowedOrigins,
+    policy =>
+    {
+        policy
+        .WithOrigins("http://localhost:5173")
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .AllowAnyMethod();
+
+    });
+
+});
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
