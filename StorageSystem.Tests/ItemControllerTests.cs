@@ -83,7 +83,7 @@ namespace StorageSystem.Tests
 
 
         [Fact]
-        public async void GetAllItems_ReturnsOkAndItemObject()
+        public async void GetItemById_ReturnsOkAndItemObject()
         {
             //Arrange
 
@@ -130,7 +130,7 @@ namespace StorageSystem.Tests
         }
 
         [Fact]
-        public async void GetAllItems_ReturnsNotFound()
+        public async void GetItemById_ReturnsNotFound()
         {
             //Arrange
 

@@ -26,8 +26,11 @@ builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IStorageBinService, StorageBinService>();
 builder.Services.AddScoped<IItemStorageBinService, ItemStorageBinService>();
 
-var Configuration = builder.Configuration;
+builder.Services.AddHealthChecks();
+builder.Services.AddControllers();
 
+
+var Configuration = builder.Configuration;
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(DbConnectionString));
 
@@ -39,9 +42,6 @@ builder.Services
     .AddIdentityApiEndpoints<ApplicationUser>(options => { })
     .AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.ConfigureApplicationCookie(options => { options.Cookie.SameSite = SameSiteMode.None; });
-
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddCors(options =>
@@ -60,8 +60,11 @@ builder.Services.AddCors(options =>
 });
 
 
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.ConfigureApplicationCookie(options => { options.Cookie.SameSite = SameSiteMode.None; });
 
 var app = builder.Build();
 
@@ -79,5 +82,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("health");
+
+app.UseCors(allowedOrigins);
 
 app.Run();
