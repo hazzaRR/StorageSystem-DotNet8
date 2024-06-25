@@ -175,6 +175,53 @@ namespace StorageSystem.Tests
 
         }
 
+
+        [Fact]
+        public async void DeleteItemById_ReturnsNoContent()
+        {
+
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = location
+            };
+
+
+            Item item = new Item
+            {
+                Id = 1,
+                Name = "Zip Ties",
+                Quantity = 4
+            };
+
+
+            _itemService.Setup(service => service.Delete(item.Id))
+                .ReturnsAsync(item);
+
+            //Act
+
+
+            var result = await _itemController.Delete(item.Id);
+
+
+            //Assert
+
+            Assert.IsType<NoContentResult>(result);
+
+            var notContentResult = (NoContentResult) result;
+
+            Assert.NotNull(notContentResult);
+
+        }
+
     }
 
 }
