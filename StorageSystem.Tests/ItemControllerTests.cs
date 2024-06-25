@@ -222,6 +222,54 @@ namespace StorageSystem.Tests
 
         }
 
+        [Fact]
+        public async void DeleteItemById_ReturnsNotFound()
+        {
+
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = location
+            };
+
+
+            Item item = new Item
+            {
+                Id = 1,
+                Name = "Zip Ties",
+                Quantity = 4
+            };
+
+
+            _itemService.Setup(service => service.Delete(item.Id))
+                .ReturnsAsync(() => null);
+
+            //Act
+
+
+            var result = await _itemController.Delete(item.Id);
+
+
+            //Assert
+
+            Assert.IsType<NotFoundObjectResult>(result);
+
+            var notFoundResult = (NotFoundObjectResult)result;
+
+            Assert.NotNull(notFoundResult);
+
+            Assert.Equal($"No item with the id {item.Id} was found, and cannot be deleted", notFoundResult.Value);
+
+        }
+
     }
 
 }
