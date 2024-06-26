@@ -118,6 +118,98 @@ namespace StorageSystem.Tests
 
         }
 
+        [Fact]
+        public async void DeleteItemFromBin_ReturnsOk()
+        {
+            //Arrange
 
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = location
+            };
+
+
+            Item item = new Item
+            {
+                Id = 1,
+                Name = "Bolts",
+                Quantity = 15
+            };
+
+            _itemStorageBinService.Setup(service => service.Delete(item.Id, bin.Id))
+                .ReturnsAsync(true);
+
+            //Act
+
+
+
+            var result = await _itemStorageBinController.DeleteItemFromBin(item.Id, bin.Id);
+
+            //Assert
+
+            Assert.IsType<OkObjectResult>(result);
+
+            var okResult = (OkObjectResult) result;
+
+            Assert.NotNull(okResult);
+
+            Assert.Equal($"Successfully delete item from bin {bin.Id}", okResult.Value);
+
+
+        }
+
+        [Fact]
+        public async void DeleteItemFromBin_ReturnsNotFound()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = location
+            };
+
+
+            Item item = new Item
+            {
+                Id = 1,
+                Name = "Bolts",
+                Quantity = 15
+            };
+
+            _itemStorageBinService.Setup(service => service.Delete(item.Id, bin.Id))
+                .ReturnsAsync(false);
+
+            //Act
+
+
+
+            var result = await _itemStorageBinController.DeleteItemFromBin(item.Id, bin.Id);
+
+            //Assert
+
+            Assert.IsType<NotFoundObjectResult>(result);
+
+            var notFoundResult = (NotFoundObjectResult )result;
+
+            Assert.NotNull(notFoundResult);
+
+            Assert.Equal($"The Item with the id: {item.Id} was not found in bin {bin.Id}", notFoundResult.Value);
+
+
+        }
     }
 }

@@ -37,17 +37,17 @@ namespace StorageSystem.Controllers
         }
 
         [HttpDelete("/{itemId}/{binId}")]
-        public async Task<IActionResult> DeleteItemToBin([FromRoute] int itemId, [FromRoute] int binId)
+        public async Task<IActionResult> DeleteItemFromBin([FromRoute] int itemId, [FromRoute] int binId)
         {
 
             var result = await _itemStorageBinService.Delete(itemId, binId);
 
             if (!result)
             {
-                return BadRequest($"The Item with the id: {itemId} was not found in bin {binId}");
+                return NotFound($"The Item with the id: {itemId} was not found in bin {binId}");
             }
 
-            return Ok("Successfully delete item from bin");
+            return Ok($"Successfully delete item from bin {binId}");
         }
 
 
