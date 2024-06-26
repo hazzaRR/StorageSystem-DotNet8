@@ -32,7 +32,7 @@ namespace StorageSystem.Controllers
                 return BadRequest();
             }
 
-            return Ok("Item successfully added to bin");
+            return Ok($"Item successfully added to bin {binId}");
         }
 
         [HttpDelete("/{itemId}/{binId}")]

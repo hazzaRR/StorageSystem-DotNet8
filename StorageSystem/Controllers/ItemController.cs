@@ -90,10 +90,6 @@ namespace StorageSystem.Controllers
         {
             var item = await _itemService.UpdateQuantity(id, quantity);
 
-
-
-
-
             return Ok();
         }
 
