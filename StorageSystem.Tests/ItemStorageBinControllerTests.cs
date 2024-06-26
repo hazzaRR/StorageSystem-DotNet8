@@ -71,6 +71,53 @@ namespace StorageSystem.Tests
 
         }
 
+        [Fact]
+        public async void AddItemToBin_ReturnsNotFound()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            StorageBin bin = new StorageBin
+            {
+                Id = 1,
+                Location = location
+            };
+
+
+            Item item = new Item
+            {
+                Id = 1,
+                Name = "Zip Ties",
+                Quantity = 4
+            };
+
+            _itemStorageBinService.Setup(service => service.Add(item.Id, bin.Id))
+                .ReturnsAsync(false);
+
+
+            //Act
+
+            var result = await _itemStorageBinController.AddItemToBin(item.Id, bin.Id);
+
+            //Assert
+
+            Assert.IsType<NotFoundObjectResult>(result);
+
+            var notFoundResult = (NotFoundObjectResult)result;
+
+            Assert.NotNull(notFoundResult);
+
+            Assert.Equal($"Item with the id {item.Id} could not be added to bin {bin.Id}, please check " +
+                    $"that the item ID supplied and bin ID exist", notFoundResult.Value);
+
+
+        }
+
 
     }
 }

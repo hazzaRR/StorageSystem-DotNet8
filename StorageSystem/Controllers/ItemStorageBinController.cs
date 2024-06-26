@@ -29,7 +29,8 @@ namespace StorageSystem.Controllers
 
             if (!result)
             {
-                return BadRequest();
+                return NotFound($"Item with the id {itemId} could not be added to bin {binId}, please check " +
+                    $"that the item ID supplied and bin ID exist");
             }
 
             return Ok($"Item successfully added to bin {binId}");
