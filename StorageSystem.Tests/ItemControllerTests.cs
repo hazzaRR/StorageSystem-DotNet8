@@ -270,6 +270,45 @@ namespace StorageSystem.Tests
 
         }
 
+        [Fact]
+        public async void UpdateQuantity_ReturnsOK()
+        {
+            //Arrange
+
+            Item item = new Item
+            {
+                Id = 1,
+                Name = "Zip Ties",
+                Quantity = 4
+            };
+
+            Item updatedItem = new Item
+            {
+                Id = 1,
+                Name = "Zip Ties",
+                Quantity = 5
+            };
+
+
+            _itemService.Setup(service => service.UpdateQuantity(item.Id, 5))
+                .ReturnsAsync(updatedItem);
+
+
+            //Act
+
+            var result = await _itemController.UpdateQuantity(item.Id, 5);
+
+
+            //Asssert
+
+            Assert.IsType<OkResult>(result);
+
+            var okResult = (OkResult) result;
+
+            Assert.NotNull(okResult);
+
+        }
+
     }
 
 }
