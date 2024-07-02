@@ -72,13 +72,26 @@ namespace StorageSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateItemDTO itemDTO)
         {
-            var item = await _itemService.Create(itemDTO.ToItem());
+
+            Item item = itemDTO.ToItem();
+            var itemModel = await _itemService.Create(item);
+
+            if (itemModel == null)
+            {
+                return NotFound();
+            }
 
 
             if (itemDTO.StorageBinsId.Count > 0)
             {
 
-                await _itemStorageBinService.AddToMultipleBins(item.Id, itemDTO.StorageBinsId);
+                bool result = await _itemStorageBinService.AddToMultipleBins(item.Id, itemDTO.StorageBinsId);
+
+                if (!result)
+                {
+                    return NotFound();
+                }
+
             }
 
 

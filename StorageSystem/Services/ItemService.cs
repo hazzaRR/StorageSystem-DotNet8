@@ -19,7 +19,7 @@ namespace StorageSystem.Services
 
         public async Task<Item> Create(Item item)
         {
-            var itemModel = _context.Item.AddAsync(item);
+            var itemModel = _context.Item.Add(item);
 
             await _context.SaveChangesAsync();
 

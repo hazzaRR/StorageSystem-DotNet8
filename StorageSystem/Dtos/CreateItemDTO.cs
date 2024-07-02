@@ -1,6 +1,4 @@
-﻿using StorageSystem.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace StorageSystem.Dtos
 {
     public class CreateItemDTO

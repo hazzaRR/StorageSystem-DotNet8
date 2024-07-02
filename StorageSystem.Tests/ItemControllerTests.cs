@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StorageSystem.Controllers;
+using StorageSystem.Dtos;
 using StorageSystem.Interfaces;
 using StorageSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using StorageSystem.Mappers;
 
 namespace StorageSystem.Tests
 {
@@ -309,6 +306,70 @@ namespace StorageSystem.Tests
 
         }
 
+        [Fact]
+        public async void CreateItem_ReturnsCreated()
+        {
+            //Arrange
+
+            Location location = new Location
+            {
+                Id = 1,
+                Name = "Attic"
+            };
+
+            StorageBin bin1 = new StorageBin
+            {
+                Id = 1,
+                Location = location
+            };
+
+            StorageBin bin2 = new StorageBin
+            {
+                Id = 2,
+                Location = location
+            };
+
+
+            CreateItemDTO itemDto = new CreateItemDTO
+            {
+                Name = "Zip Ties",
+                Quantity = 4,
+                StorageBinsId = new List<int> { bin1.Id, bin2.Id }
+            };
+
+
+            Item item = itemDto.ToItem();
+
+            Item item1 = new Item
+            {
+                Id =  1,
+                Name = "Zip Ties",
+                Quantity = 4
+
+            };
+
+            _itemService.Setup(service => service.Create(It.IsAny<Item>()))
+                .ReturnsAsync(item);
+
+
+            _itemStorageBinService.Setup(service => service.AddToMultipleBins(item.Id, itemDto.StorageBinsId))
+                .ReturnsAsync(true);
+
+            //Act
+
+            var result = await _itemController.Create(itemDto);
+
+            //Assert
+
+            Assert.IsType<CreatedResult>(result);
+
+            var createdResult = (CreatedResult) result;
+
+            Assert.NotNull(createdResult);
+
+
+        }
     }
 
 }
+ 
